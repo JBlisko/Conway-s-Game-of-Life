@@ -1,0 +1,3 @@
+﻿  GameofLife2D.cpp
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(99,23): warning C4018: '<': signed/unsigned mismatch
+  Game of Life 2D.vcxproj -> C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\Debug\Game of Life 2D.exe

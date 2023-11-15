@@ -1,0 +1,2 @@
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\Debug\Game of Life 2D.exe
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\Debug\Game of Life 2D.pdb
