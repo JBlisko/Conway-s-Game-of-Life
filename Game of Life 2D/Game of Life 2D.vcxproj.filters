@@ -21,9 +21,18 @@
     <ClCompile Include="calcState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="drawGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calcState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pointers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

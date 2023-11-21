@@ -1,3 +1,11 @@
 ﻿  GameofLife2D.cpp
-C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(99,23): warning C4018: '<': signed/unsigned mismatch
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(26,24): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(26,17): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(114,35): warning C4018: '<': signed/unsigned mismatch
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(73,20): warning C4101: 'type': unreferenced local variable
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\GameofLife2D.cpp(165,23): warning C4018: '<': signed/unsigned mismatch
+  drawGrid.cpp
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\drawGrid.cpp(19,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\drawGrid.cpp(32,35): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Game of Life 2D.vcxproj -> C:\All Files\Visual Studios\C++ Scripts\Game of Life 2D\Debug\Game of Life 2D.exe

@@ -148,10 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="calcState.cpp" />
+    <ClCompile Include="drawGrid.cpp" />
     <ClCompile Include="GameofLife2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calcState.h" />
+    <ClInclude Include="drawGrid.h" />
+    <ClInclude Include="pointers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

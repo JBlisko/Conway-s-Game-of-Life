@@ -1,8 +1,10 @@
 #ifndef CALC_STATE_H
 #define CALC_STATE_H
 
-#include <cmath>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-void calcState(bool* oldState, bool* newState);
+void calcState(std::vector<int>& X, std::vector<int>& Y);
 
 #endif
