@@ -1,4 +1,4 @@
 # Conway's Game of Life
 This repo gives a C++ implementation of John H. Conway's 'Game of Life', which is a very basic model of cellular automata. These are discrete models for the propogation of information through the creation and annihilation of cells.
 
-This solution utilizes vectors $v_x$ and $v_y$ containing the coordinates of all alive cells, drastically reducing the memory needed for allocation. Although the grid frame is fixed, the use of vectors allow for a grid size on the bounds $v\in(-1,073,741,823, 1,073,741,823)$
+This solution utilizes vectors $v_x$ and $v_y$ containing the coordinates of all alive cells, drastically reducing the memory needed for allocation. Although the grid frame is fixed, the use of vectors allow for a grid size on the bounds $v\in(-1,073,741,823, 1,073,741,823)\times (-1,073,741,823, 1,073,741,823)$, since the largest integer allowed to be stored in an integer vector is $2^{31}-1$. We can implement even larger bounds by using what are essentially power towers, where we create another vector to describe how many times the vector has passed through this periodic boundary condition.
