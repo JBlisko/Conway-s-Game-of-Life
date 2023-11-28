@@ -14,6 +14,13 @@ Ideas:
  - Add different species
  - Make in 3D
  - Place on toroids, sphere, Mobius strip, etc. by gluing the edges together with a periodic boundary condition
+ - If we want to make the grid size of solution even larger, we can implement a solution where if the coordinate exceeds 1,073,741,823 then we increment another index
+   which says how many times the alive cell has added 
+ - Apply ideas from assembly dynamics of cellular automata from Sharma, Czegel, Lachman, Kempres, Walker, Cronin
+ - Incorporate SDL library for graphics implementation: 
+ - Could incorporate an energy associated with a cluster that is alive. For instance, you could give a glider a certain amount of energy. If it goes N cells away, it
+   will lose f(N) amount of energy. This would require some complicated implementation, since you would need to recognize that the glider is the same one as in the
+   previous time step. Creating a group list would be a first step to this, but updating such a list would be difficult.
 */
 
 
@@ -32,6 +39,7 @@ Ideas:
 // Global constants
 const int GRIDSIZE = 20; // Best to use odd values for a symmetric grid
 const int BOUND = floor(GRIDSIZE / 2);
+const int MAXTIME = 200; // Maximum number of timesteps
 
 // User defined types
 class cellType
@@ -61,6 +69,7 @@ private:
 bool checkInt(std::string input);
 bool checkValid(int x, int y);
 bool checkDead(std::vector<int> X, std::vector<int> Y); // Function to check if all cells are dead. Just input the vectors and see if they are empty.
+bool stableConfig(std::vector<int> X, std::vector<int> Y, std::vector<int> oldX, std::vector<int> oldY);
 void test(int input, bool check); // Used for testing
 
 
@@ -71,8 +80,11 @@ int main(void)
     //test(in, in2);
     //system("pause");
 
+    int index = 0, dup = 0, timeStep = 1;
     static int x, y;
-    std::vector<int> X, Y;
+    bool check = true, waitInput = true, time = true;
+    char start;
+    std::vector<int> X, Y, oldX, oldY;
     std::string input;
     class cellType type;
 
@@ -98,11 +110,9 @@ Input:
     
     if (checkInt(input))
     {
-        int i = 0;
-        bool check = true;
         while (check)
         {
-            std::cout << "Input integer coordinates for grid point number " << i + 1 << " (in the format x y):" << std::endl;
+            std::cout << "Input integer coordinates for grid point number " << index + 1 << " (in the format x y):" << std::endl;
 
             if (!(std::cin >> x >> y) || !checkValid(x, y))
             {
@@ -113,7 +123,6 @@ Input:
             }
             else
             {
-                int dup = 0;
 
                 for (int j = 0; j < std::min(X.size(), Y.size()); j++)
                 {
@@ -126,7 +135,7 @@ Input:
                 {
                     X.push_back(x);
                     Y.push_back(y);
-                    i++;
+                    index++;
                 }
                 else
                 {
@@ -137,7 +146,7 @@ Input:
                 }
             }
 
-            if (i == stoi(input))
+            if (index == stoi(input))
                 check = false;
         }
     }
@@ -152,23 +161,52 @@ Input:
         goto Input;
     }
 
+    // Draw initial grid layout
     drawGrid(X, Y, GRIDSIZE);
-    system("pause");
-    calcState(X, Y);
-    drawGrid(X, Y, GRIDSIZE);
-    system("pause");
-    calcState(X, Y);
-    drawGrid(X, Y, GRIDSIZE);
-    system("pause");
-    calcState(X, Y);
-    drawGrid(X, Y, GRIDSIZE);
-    system("pause");
-    calcState(X, Y);
-    drawGrid(X, Y, GRIDSIZE);
-    system("pause");
-    calcState(X, Y);
-    drawGrid(X, Y, GRIDSIZE);
-    system("pause");
+    while (waitInput)
+    {
+        std::cout << "\nAll data has been input, with the above initial grid. Would you like to start the game? (y/n)\n";
+        if (std::cin >> start)
+        {
+            if (start == 'y')
+                waitInput = false;
+            else if (start == 'n')
+                std::cout << "\nThe game will wait to start.";
+            else {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "ERROR: Please give valid input (y/n)." << std::endl;
+                system("pause");
+            }
+        }
+    }
+
+    // Run game
+    while (time)
+    {
+        calcState(X, Y);
+        drawGrid(X, Y, GRIDSIZE);
+        system("pause");
+        
+        if (timeStep == MAXTIME) {
+            std::cout << "The maximum number of timesteps has been reached: " << MAXTIME << " time steps\n";
+            time = false;
+        }
+        if (checkDead(X, Y)) {
+            std::cout << "All cells have died at time step " << timeStep << ".\n";
+            time = false;
+        }
+        if (stableConfig(X, Y, oldX, oldY)) {
+            std::cout << "The cell configuration has repeated. Since no more change will occur, we stop the continuation of the game.\n";
+            time = false;
+        }
+
+        oldX.clear();
+        oldY.clear();
+        oldX = X;
+        oldY = Y;
+        timeStep++;
+    }
 
     return(0);
 }
@@ -195,6 +233,27 @@ bool checkDead(std::vector<int> X, std::vector<int> Y)
     if (X.size() == 0 || Y.size() == 0)
         return true;
     return false;
+}
+
+
+bool stableConfig(std::vector<int> X, std::vector<int> Y, std::vector<int> oldX, std::vector<int> oldY)
+{
+    bool check = true;
+    int n = 0;
+
+    if (X.size() == oldX.size())
+    {
+        while (check)
+        {
+            if (!(X[n] == oldX[n]) || !(Y[n] == oldY[n]))
+                return false;
+            if (n == X.size() - 1)
+                return true;
+            n++;
+        }
+    }
+    else
+        return false;
 }
 
 
